@@ -22,7 +22,7 @@ supply_order = testUtility.init_supply_order()
 supply = testUtility.init_supply(box, player_names, nV, nC)
 
 # initialize the trash
-trash = testUtility.init_trash
+trash = testUtility.init_trash()
 
 # Costruct the Player objects
 players = testUtility.init_players(player_names)
