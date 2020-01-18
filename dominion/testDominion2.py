@@ -11,6 +11,9 @@ import testUtility
 # Get player names
 player_names = testUtility.init_player_names()
 
+# Change game data by creating a fourth player
+player_names.append('^Fourth Player')
+
 # number of curses and victory cards
 nV, nC = testUtility.init_victory_curse_count(player_names)
 
