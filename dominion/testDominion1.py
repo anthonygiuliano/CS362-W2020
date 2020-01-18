@@ -21,6 +21,11 @@ supply_order = testUtility.init_supply_order()
 
 supply = testUtility.init_supply(box, player_names, nV, nC)
 
+# introduce bug by removing coin cards from the supply
+supply['Copper'] = []
+supply['Silver'] = []
+supply['Gold'] = []
+
 # initialize the trash
 trash = testUtility.init_trash()
 
