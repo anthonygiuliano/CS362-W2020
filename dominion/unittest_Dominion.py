@@ -103,7 +103,6 @@ class TestCard(TestCase):
         coins = 5
 
         card = Dominion.Action_card(name, cost, actions, cards, buys, coins)
-
         self.player.turn(self.players, self.supply, self.trash)
 
         # add values from `card` to the current values in `player` to calculate expected values
@@ -123,13 +122,12 @@ class TestCard(TestCase):
     def test_player_action_balance(self):
         self.setup()
         multiple = 70
-        cards = len(self.player.stack())
         balance = 0
 
         for c in self.player.stack():
             if c.category == 'action':
-                balance -= 1
                 balance += c.actions
+                balance -= 1
 
         self.assertEqual(multiple * balance / len(self.player.stack()), self.player.action_balance())
 
@@ -144,20 +142,19 @@ class TestCard(TestCase):
         coins = 5
         card = Dominion.Action_card(name, cost, actions, cards, buys, coins)
         self.player.hand.append(card)
-        cards = len(self.player.stack())
         balance = 0
 
         for c in self.player.stack():
             if c.category == 'action':
-                balance -= 1
                 balance += c.actions
+                balance -= 1
 
         self.assertEqual(multiple * balance / len(self.player.stack()), self.player.action_balance())
 
 
     def test_player_calcpoints(self):
         self.setup()
-        points = 0
+        points = 3
         self.player.hand.append(Dominion.Province())
         points += Dominion.Province().vpoints
         self.player.hand.append(Dominion.Duchy())
@@ -165,7 +162,8 @@ class TestCard(TestCase):
         self.player.hand.append(Dominion.Estate())
         points += Dominion.Estate().vpoints
         self.player.hand.append(Dominion.Gardens())
-        num_gardens = 4
+        points += Dominion.Gardens().vpoints
+        num_gardens = 1
         garden_vpoint_const = 10
         points += (len(self.player.stack()) // garden_vpoint_const) * num_gardens
 
@@ -195,8 +193,8 @@ class TestCard(TestCase):
         self.player.hand.append(Dominion.Duchy())
         self.player.hand.append(Dominion.Estate())
         self.player.hand.append(Dominion.Gardens())
-        summary = self.player.cardsummary()
         num_estates = 4
+        summary = self.player.cardsummary()
 
         self.assertEqual(self.player.calcpoints(), summary['VICTORY POINTS'])
         self.assertEqual(num_estates, summary[Dominion.Estate().name])
